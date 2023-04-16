@@ -8,6 +8,9 @@ class audio:
     def audioOut(self, text):
         print(text.capitalize())
         engine = pyttsx3.init()
+        voices = engine.getProperty('voices')
+        engine.setProperty('voice', voices[0].id)
+        engine.setProperty('rate', 130)
         engine.say(text.lower())
         engine.runAndWait()
 
@@ -20,7 +23,7 @@ class audio:
             voice = recogn.listen(source)
         try:
             print("Recognizing...")
-            text = recogn.recognize_google(voice)
+            text = recogn.recognize_google(voice, language="en-in")
 
         except sr.UnknownValueError:
             self.audioOut("Sorry,I  could not recognize what you said")
